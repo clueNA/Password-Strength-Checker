@@ -1,8 +1,6 @@
 import streamlit as st
 import re
 from datetime import datetime
-import json
-import time
 import string
 
 class PasswordStrengthChecker:
@@ -144,6 +142,14 @@ def main():
     .stProgress > div > div > div > div {
         transition: all 500ms ease;
     }
+    .timestamp {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-style: italic;
+        color: #666;
+    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -229,9 +235,16 @@ def main():
     - Don't reuse passwords across different accounts
     """)
 
-    # Current timestamp in footer
-    st.markdown(f"*Current Time (UTC): {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')}*")
-    st.markdown(f"*Current User: {st.session_state.get('user', 'clueNA')}*")
+    # Current timestamp in footer with specified format
+    current_time = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+    st.markdown(
+        f"""
+        <div class="timestamp">
+            Current Date and Time (UTC): {current_time}
+        </div>
+        """, 
+        unsafe_allow_html=True
+    )
 
 if __name__ == "__main__":
     main()
